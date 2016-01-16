@@ -1,0 +1,51 @@
+﻿@model IEnumerable<CafeBlue.ProductsTable>
+@{
+    List<SelectListItem> items = new List<SelectListItem>();
+}
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">Meal</h3>
+            </div><!-- /.box-header -->
+            <div class="box-body">
+                <table class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <td>#</td>
+                            <td>Name</td>
+                            <td>Description</td>
+                            <td>Small Price</td>
+                            <td>Medium Price</td>
+                            <td>Large Price</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (CafeBlue.ProductsTable m in @Model)
+                        {
+                            <tr>
+                                <td>@m.Id</td>
+                                <td>@m.ProductName</td>
+                                <td>@m.Description</td>
+                                <td>$@m.smallprice</td>
+                                <td>$@m.medprice</td>
+                                <td>$@m.largeprice</td>
+                            </tr>
+
+                            items.Add(new SelectListItem
+                            {
+                                Text = m.ProductName,
+                                Value = m.ProductName
+                            });
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@Html.Partial("_manageProductPartial", items)
+@Html.Partial("_newProductPartial", new CafeBlue.ProductsTable())
+@Html.Partial("_removePartial", items)

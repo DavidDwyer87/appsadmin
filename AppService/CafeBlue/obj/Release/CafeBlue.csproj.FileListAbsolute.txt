@@ -1,0 +1,15 @@
+C:\Users\Bishop\documents\visual studio 2013\Projects\AppService\CafeBlue\bin\Release\CafeBlue.dll.config
+C:\Users\Bishop\documents\visual studio 2013\Projects\AppService\CafeBlue\bin\Release\CafeBlue.dll
+C:\Users\Bishop\documents\visual studio 2013\Projects\AppService\CafeBlue\bin\Release\CafeBlue.pdb
+C:\Users\Bishop\documents\visual studio 2013\Projects\AppService\CafeBlue\bin\Release\EntityFramework.dll
+C:\Users\Bishop\documents\visual studio 2013\Projects\AppService\CafeBlue\bin\Release\EntityFramework.SqlServer.dll
+C:\Users\Bishop\documents\visual studio 2013\Projects\AppService\CafeBlue\bin\Release\EntityFramework.xml
+C:\Users\Bishop\documents\visual studio 2013\Projects\AppService\CafeBlue\bin\Release\EntityFramework.SqlServer.xml
+C:\Users\Bishop\documents\visual studio 2013\Projects\AppService\CafeBlue\obj\Release\CafeBlue.csprojResolveAssemblyReference.cache
+C:\Users\Bishop\documents\visual studio 2013\Projects\AppService\CafeBlue\obj\Release\CafeBlue.Migrations.init.resources
+C:\Users\Bishop\documents\visual studio 2013\Projects\AppService\CafeBlue\obj\Release\CafeBlue.Migrations.init1.resources
+C:\Users\Bishop\documents\visual studio 2013\Projects\AppService\CafeBlue\obj\Release\CafeBlue.Migrations.init2.resources
+C:\Users\Bishop\documents\visual studio 2013\Projects\AppService\CafeBlue\obj\Release\CafeBlue.Migrations.init3.resources
+C:\Users\Bishop\documents\visual studio 2013\Projects\AppService\CafeBlue\obj\Release\CafeBlue.csproj.GenerateResource.Cache
+C:\Users\Bishop\documents\visual studio 2013\Projects\AppService\CafeBlue\obj\Release\CafeBlue.dll
+C:\Users\Bishop\documents\visual studio 2013\Projects\AppService\CafeBlue\obj\Release\CafeBlue.pdb

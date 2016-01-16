@@ -1,0 +1,56 @@
+﻿@using AppService.Models
+@model IEnumerable<ManageProjectModel>
+@{
+    Layout = null;
+}
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Page</th>
+            <th>Page status</th>
+            <th>Edit</th>
+            <th>Remove</th>
+        </tr>
+    </thead>
+    <tbody id="manage-content">
+        @{
+            foreach (ManageProjectModel m in Model)
+            {
+                <tr>
+                    <td id="last">@m.Id</td>
+                    <td id="@m.Id-r">
+                        <b id="@m.Id-r-d">@m.Page</b>
+                    </td>
+                    <td>
+                        @if (m.Status)
+                        {
+                            <a id="@m.Page" href="javascript:statusSwitch_page('@m.Page')">
+                                <span class="label label-success">online</span>
+                            </a>
+                        }
+                        else
+                        {
+                            <a id="@m.Page" href="javascript:statusSwitch_page('@m.Page')">
+                                <span class="label label-danger">offline</span>
+                            </a>
+                        }
+                    </td>
+                    <td>
+                        <button id="editPage" class="btn-xs btn-primary btn-flat" onclick="return edit('@m.Id-r','@m.Page');">
+                            <i class="fa fa-edit"></i>
+                            edit
+                        </button>
+                    </td>
+                    <td>
+                        <button id="removePage" class="btn-xs btn-danger btn-flat" onclick="return remove('@m.Page');">
+                            <i class="fa fa-remove"></i>
+                            remove
+                        </button>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>

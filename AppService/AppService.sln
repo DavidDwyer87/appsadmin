@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppService", "AppService\AppService.csproj", "{8C2298B1-9810-43C3-B0A5-0B2D9EE7F490}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CafeBlue", "CafeBlue\CafeBlue.csproj", "{19EDDC3A-79E9-4574-B097-5669335B2218}"
+EndProject
+Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 3
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://daviddwyer.visualstudio.com/defaultcollection
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = AppService\\AppService.csproj
+		SccProjectName1 = AppService
+		SccLocalPath1 = AppService
+		SccProjectUniqueName2 = CafeBlue\\CafeBlue.csproj
+		SccProjectName2 = CafeBlue
+		SccLocalPath2 = CafeBlue
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8C2298B1-9810-43C3-B0A5-0B2D9EE7F490}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C2298B1-9810-43C3-B0A5-0B2D9EE7F490}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C2298B1-9810-43C3-B0A5-0B2D9EE7F490}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C2298B1-9810-43C3-B0A5-0B2D9EE7F490}.Release|Any CPU.Build.0 = Release|Any CPU
+		{19EDDC3A-79E9-4574-B097-5669335B2218}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{19EDDC3A-79E9-4574-B097-5669335B2218}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{19EDDC3A-79E9-4574-B097-5669335B2218}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{19EDDC3A-79E9-4574-B097-5669335B2218}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
