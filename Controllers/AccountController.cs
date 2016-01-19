@@ -8,15 +8,22 @@ using System.Web.Security;
 using DotNetOpenAuth.AspNet;
 using Microsoft.Web.WebPages.OAuth;
 using WebMatrix.WebData;
-using AppsAdmin.Filters;
-using AppsAdmin.Models;
+using AppService.Filters;
+using AppService.Models;
+using AppService.Repository;
 
-namespace AppsAdmin.Controllers
-{
-    [Authorize]
+namespace AppService.Controllers
+{    
     [InitializeSimpleMembership]
     public class AccountController : Controller
     {
+        IUserContext users = null;
+
+        public AccountController()
+        {
+            users = new UserContext();
+        }
+
         //
         // GET: /Account/Login
 
@@ -37,12 +44,15 @@ namespace AppsAdmin.Controllers
         {
             if (ModelState.IsValid && WebSecurity.Login(model.UserName, model.Password, persistCookie: model.RememberMe))
             {
-                return RedirectToLocal(returnUrl);
+
+                TempData["name"] = users.getUserName(model.UserName);
+
+                return RedirectToAction("Index","DashBoard");
             }
 
             // If we got this far, something failed, redisplay form
             ModelState.AddModelError("", "The user name or password provided is incorrect.");
-            return View(model);
+            return RedirectToAction("Index", "Home");
         }
 
         //
@@ -59,10 +69,12 @@ namespace AppsAdmin.Controllers
 
         //
         // GET: /Account/Register
-
+        
         [AllowAnonymous]
         public ActionResult Register()
         {
+            //if (!Request.IsAuthenticated)
+            //    return RedirectToAction("Index", "Home");
             return View();
         }
 
@@ -79,8 +91,11 @@ namespace AppsAdmin.Controllers
                 // Attempt to register the user
                 try
                 {
-                    WebSecurity.CreateUserAndAccount(model.UserName, model.Password);
-                    WebSecurity.Login(model.UserName, model.Password);
+                    WebSecurity.CreateUserAndAccount(model.UserName, model.Password); 
+                    //WebSecurity.Login(model.UserName, model.Password);
+
+                    users.UserInfo(model.UserName,model.Name, model.email);
+                   
                     return RedirectToAction("Index", "Home");
                 }
                 catch (MembershipCreateUserException e)
@@ -263,7 +278,7 @@ namespace AppsAdmin.Controllers
             if (ModelState.IsValid)
             {
                 // Insert a new user into the database
-                using (UsersContext db = new UsersContext())
+                using (UserContext db = new UserContext())
                 {
                     UserProfile user = db.UserProfiles.FirstOrDefault(u => u.UserName.ToLower() == model.UserName.ToLower());
                     // Check if user already exists

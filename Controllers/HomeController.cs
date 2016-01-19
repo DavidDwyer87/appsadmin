@@ -4,13 +4,13 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace AppsAdmin.Controllers
+namespace AppService.Controllers
 {
     public class HomeController : Controller
     {
         public ActionResult Index()
         {
             return View();
-        }
+        }       
     }
 }
