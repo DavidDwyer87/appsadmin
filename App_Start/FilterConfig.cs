@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Mvc;
 
-namespace AppService
+namespace AppsAdmin
 {
     public class FilterConfig
     {

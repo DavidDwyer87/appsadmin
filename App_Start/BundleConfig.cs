@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Optimization;
 
-namespace AppService
+namespace AppsAdmin
 {
     public class BundleConfig
     {

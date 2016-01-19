@@ -7,8 +7,27 @@ using System.Globalization;
 using System.Web.Mvc;
 using System.Web.Security;
 
-namespace AppService.Models
+namespace AppsAdmin.Models
 {
+    public class UsersContext : DbContext
+    {
+        public UsersContext()
+            : base("DefaultConnection")
+        {
+        }
+
+        public DbSet<UserProfile> UserProfiles { get; set; }
+    }
+
+    [Table("UserProfile")]
+    public class UserProfile
+    {
+        [Key]
+        [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
+        public int UserId { get; set; }
+        public string UserName { get; set; }
+    }
+
     public class RegisterExternalLoginModel
     {
         [Required]
@@ -55,16 +74,8 @@ namespace AppService.Models
     public class RegisterModel
     {
         [Required]
-        [Display(Name = "Name")]
-        public string Name { get; set; }
-
-        [Required]
         [Display(Name = "User name")]
         public string UserName { get; set; }
-
-        [Required]
-        [Display(Name = "Email")]
-        public string email { get; set; }
 
         [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]

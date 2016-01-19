@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Web.WebPages.OAuth;
-using AppService.Models;
+using AppsAdmin.Models;
 
-namespace AppService
+namespace AppsAdmin
 {
     public static class AuthConfig
     {

@@ -4,10 +4,9 @@ using System.Data.Entity.Infrastructure;
 using System.Threading;
 using System.Web.Mvc;
 using WebMatrix.WebData;
-using AppService.Models;
-using AppService.Repository;
+using AppsAdmin.Models;
 
-namespace AppService.Filters
+namespace AppsAdmin.Filters
 {
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = false, Inherited = true)]
     public sealed class InitializeSimpleMembershipAttribute : ActionFilterAttribute
@@ -26,11 +25,11 @@ namespace AppService.Filters
         {
             public SimpleMembershipInitializer()
             {
-                Database.SetInitializer<DashDataContext>(null);
+                Database.SetInitializer<UsersContext>(null);
 
                 try
                 {
-                    using (var context = new UserContext())
+                    using (var context = new UsersContext())
                     {
                         if (!context.Database.Exists())
                         {
