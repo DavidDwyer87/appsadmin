@@ -1,0 +1,297 @@
+﻿@using AppService.Models
+@model  List<ProjectModel>
+@{
+    ViewBag.Title = "Manage Projects";
+    Layout = "~/Views/Shared/_LayoutDashBoard.cshtml";
+    List<SelectListItem> items = new List<SelectListItem>();
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        //get first project in the list
+        $.ajax({
+            url: '/DashBoard/getPages?project=' + $('#prj').val(),
+            success:function (data, status) {
+                $('#data').html(data);            
+            },
+            cache:false
+        });
+
+        $('#prj').change(function (e) {
+            $.ajax({
+                url: '/DashBoard/getPages?project=' + $('#prj').val(),
+                success: function (data, status) {
+                    $('#data').html(data);
+
+                    var main = document.getElementById($('#prj').val());
+                    var prjP = document.getElementById('projAccess');
+
+                    if (main.innerText == "online") {
+                        prjP.className = "label label-success";
+                        prjP.innerText = "online";
+                    }
+                    else {
+                        prjP.className = "label label-danger";
+                        prjP.innerText = "offline";
+                    }
+                },
+                cache: false
+            });
+        });
+
+        $('#addpage').click(function (e) {
+
+            if ($('#addpage').text() == 'Add Page') {
+                
+                var data = $('#manage-content').html();
+                var newdata = '<tr>' +
+                                    '<td>*</td>' +
+                                    "<td id='newdata'><input id='newpage' type='text' value='' placeholder='page url'/></td>" +
+                                    "<td><span class='label label-success'>online</span></td>" +
+                                    "<td></td>"
+                '</tr>';
+                $('#manage-content').html(data + newdata);
+                $('#addpage').text('Save Page');
+            }
+            else {
+                $.get('/DashBoard/updateStatus?name=' + $('#prj').val() +
+                '&page=' + $('#newpage').val() +
+                '&s_project=' + document.getElementById($('#prj').val()).innerText +
+                '&s_page=online'
+                , function (data, status) {
+                    alert('yes');
+                });
+
+                //reload table
+                $.get('/DashBoard/getPages?project=' + $('#prj').val(), function (data, status) {
+                    $('#data').html(data);                   
+                });
+
+                $('#newdata').html($('#newpage').val());
+                $('#addpage').text('Add Page');
+
+            }
+        });
+
+        $('#btn-close').click(function (e) {
+            window.location = "/DashBoard/proj";
+        });
+    });
+
+    function edit(row, previous) {
+        if ($('#editPage').text().trim() == "edit") {
+            $('#editPage').html("<i class='fa fa-save'></i> save");
+            var input = "<input id='newpage' type='text' value='" + previous + "' placeholder='page url'/>";
+            $('#' + row).html(input);
+        }
+        else if ($('#editPage').text().trim() == 'save') {
+            var newpage = $('#newpage').val();
+
+            //change button state
+            $('#editPage').html("<i class='fa fa-edit'></i> edit");
+
+            //remove text input from text
+            $('#' + row).html('<b>' + newpage + '</b>');
+
+            $.ajax({
+                url: '/DashBoard/edit?project=' + $('#prj').val() +
+                '&current=' + newpage +
+                '&previous=' + previous,
+                success: function (data, status) {
+                    $.ajax({
+                        url: '/DashBoard/getPages?project=' + $('#prj').val(),
+                        success: function (data, status) {
+                            $('#data').html(data);
+                        },
+                        cache: false
+                    });
+                },
+                cache: false
+            });
+
+            
+        }
+    }
+
+    function remove(page) {
+        var r = confirm('Are sure you want to delete this page?')
+
+        if (r) {
+            $.ajax({
+                url: '/DashBoard/removePage?project=' + $('#prj').val() +
+                '&page=' + page,
+                success: function (data) {
+                    $('#' + $('#prj').val() + '-count').text(data.count);
+                },
+                cache: false
+            });
+
+            $.ajax({
+                url: '/DashBoard/getPages?project=' + $('#prj').val(),
+                success: function (data, status) {
+                    $('#data').html(data);
+                },
+                cache: false
+            });
+        }
+    }
+
+    function statusSwitch_project() {
+        var prjP = document.getElementById('projAccess');
+        var main = document.getElementById($('#prj').val());
+
+        if (prjP.innerText == "online") {
+            prjP.className = "label label-danger";
+            prjP.innerText = "offline";
+
+            main.className = "label label-danger";
+            main.innerText = "offline";
+        }
+        else {
+            prjP.className = "label label-success";
+            prjP.innerText = "online";
+
+            main.className = "label label-success";
+            main.innerText = "online";
+        }
+
+        $.ajax({
+            url: '/DashBoard/updateStatus?name=' + $('#prj').val() +
+            '&page=' +
+            '&s_project=' + prjP.innerText +
+            '&page=',
+            success: function (data) {
+            },
+            cache: false
+        });
+
+    }
+
+    function statusSwitch_page(page) {
+        var prjP = document.getElementById(page);
+
+        if (prjP.innerText.trim() == "online") {
+
+            prjP.className = "label label-danger";
+            prjP.innerText = "offline";
+        }
+        else {
+            prjP.className = "label label-success";
+            prjP.innerText = "online";
+        }
+
+        $.ajax({
+                 url: '/DashBoard/updateStatus?name=' + $('#prj').val() +
+                '&page=' + page +
+                '&s_project=' + document.getElementById($('#prj').val()).innerText +
+                '&s_page=' + prjP.innerText,
+                 success: function (data) {
+            },
+            cache: false
+        });
+    }
+</script>
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        Manage Projects
+        <small>Control panel</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="/Dashboard/"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">Manage Projects</li>
+    </ol>
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <div class="box box-primary" style="position:relative;">
+            <div class="box-header ui-sortable-handle" style="cursor:move;">
+
+            </div>
+            <a class="btn btn-app" id="modal-29791" role="button" href="#modal-container-29791" data-toggle="modal">
+               <i class="fa fa-barcode"></i>
+                New Project
+            </a> 
+            <a class="btn btn-app" id="modal-29792" role="button" href="#modal-container-29792" data-toggle="modal">
+                <i class="fa fa-edit"></i>
+                Manage Project
+            </a> 
+            <a class="btn btn-app" id="modal-29793" role="button" href="#modal-container-29793" data-toggle="modal">
+                <i class="fa fa-remove"></i>
+                Remove Project
+            </a> 
+        </div>
+        <div class="col-xs-12"> 
+            @if(Model !=null)
+            {
+                <div class="box">
+                    <div class="box-header">
+                        <h3 class="box-title">Data Table With Full Features</h3>
+                    </div><!-- /.box-header -->
+                    <div class="box-body">
+                        <table id="example1" class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Project Name</th>
+                                    <th>Number of Pages</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                               
+
+                                @foreach (ProjectModel m in Model)
+                                {                                   
+                                    <tr>
+                                        <td>@m.Id</td>
+                                        <td>@m.Name</td>
+                                        <td id="@m.Name-count">@m.Page_Count</td>
+
+                                        @if (m.Status)
+                                        {
+                                             <td>
+                                                 <span id="@m.Name" class="label label-success">online</span>  
+                                             </td>
+                                        }
+                                        else
+                                        {
+                                             <td>
+                                                 <span id="@m.Name" class="label label-danger">offline</span> 
+                                             </td>
+                                        }                            
+                                    </tr>   
+                                    
+                                    if(!items.Contains(new SelectListItem{Text=m.Name,Value=m.Name}))
+                                    {
+                                        items.Add(new SelectListItem { 
+                                            Text = m.Name, 
+                                            Value = m.Name });
+                                    }                                       
+                                }
+                            </tbody>                           
+                        </table>
+                    </div><!-- /.box-body -->
+            </div><!-- /.box -->   
+           
+            }
+            else
+            {
+                <div class="alert alert-dismissable alert-info">				   
+				    <h4>
+					    Alert!
+				    </h4> 
+                    <strong>No Data!</strong> No project has been setup as yet.                   
+                </div>
+            }                      
+            
+        </div><!-- /.col -->
+    </div><!-- /.row -->
+</section>
+<!-- /.content --> 
+
+@Html.Partial("_newPrjPartial")
+@Html.Partial("_managePrjPartial", items)
+@Html.Partial("_RemovePrjPartial", items)

@@ -1,0 +1,58 @@
+﻿<script type="text/javascript">
+    $(document).ready(function (e) {
+        $('#save').click(function () {
+            if($('#prjname').val()!='')
+            {
+                $('#newprjForm').submit();
+            }
+            else
+            {
+                alert('Project name required');
+            }
+        });        
+    });
+</script>
+
+@using (Html.BeginForm("newProj", "DashBoard", FormMethod.Post, new { id="newprjForm" }))
+{
+    <div class="modal fade" id="modal-container-29791" role="dialog" aria-hidden="true" aria-labelledby="myModalLabel">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button class="close" aria-hidden="true" type="button" data-dismiss="modal">
+                        ×
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">
+                        New Project
+                    </h4>
+                </div>
+                <div class="modal-body">       
+                    <table>
+                        <tr>
+                            <td>Project Name:</td>
+                            <td>
+                                <input id="prjname" type="text" value="" name="projectName"/>                                
+                            </td>                            
+                        </tr>   
+                        <tr>
+                            <td>Project Status:</td>
+                            <td>
+                                <span class="label label-success">online</span> 
+                            </td>                            
+                        </tr>         
+                        
+                    </table>                    
+                </div>
+                <div class="modal-footer">
+
+                    <button class="btn btn-default" type="button" data-dismiss="modal">
+                        Close
+                    </button>
+                    <button class="btn btn-primary" type="button" id="save">
+                        Save
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+}

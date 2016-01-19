@@ -1,0 +1,60 @@
+﻿@model List<SelectListItem>
+
+<script type="text/javascript">
+
+</script>
+
+@using(Html.BeginForm())
+{
+    <div class="modal fade" id="modal-container-29793" role="dialog" aria-hidden="true" aria-labelledby="myModalLabel">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close" aria-hidden="true" type="button" data-dismiss="modal">
+                    ×
+                </button>
+                <h4 class="modal-title" id="myModalLabel">
+                   Remove Project
+                </h4>
+            </div>
+            <div class="modal-body">
+                <table>
+                    <tr>
+                        <td>Projects:</td>
+                        <td>@Html.DropDownList("Rprj", Model, new { })</td>
+                        <td></td>
+                        <td>
+                            <a id="pja" href="javascript:statusSwitch_project()">
+                                <span id="projAccess" class="label label-success">online</span>
+                            </a>
+                        </td>
+                    </tr>
+                </table>
+                
+                <table>
+                    <tr>
+                        <td>Project Name:</td>
+                        <td><input type="text" value="" id="project" name="project" /></td>
+                    </tr>
+                    <tr>
+                        <td>Username:</td>
+                        <td><input type="text" value="" name="username" id="username"/></td>
+                    </tr>
+                    <tr>
+                        <td>Password:</td>
+                        <td><input type="password" value="" id="pass" name="pass"/></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-default" type="button" data-dismiss="modal">
+                    Close
+                </button>
+                <button class="btn btn-primary" type="button" id="save">
+                    Save
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+}
